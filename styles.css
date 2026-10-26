@@ -1,0 +1,241 @@
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("fonts/BricolageGrotesque.woff2") format("woff2");
+  font-weight: 200 800;
+  font-stretch: 75% 100%;
+  font-display: swap;
+}
+
+:root {
+  --mist: #EEF3F1;
+  --fir: #163A2F;
+  --moss: #4E7A5C;
+  --ball: #F2D74B;
+  --ball-seam: #FFFFFF;
+  --white: #FFFFFF;
+  --line: #C9D8D1;
+  --sky-1: #7C5CE8;
+  --sky-2: #C9406F;
+  --measure: 34rem;
+  --gutter: clamp(1rem, 5vw, 4rem);
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--mist);
+  color: var(--fir);
+  font-family: "Bricolage Grotesque", system-ui, sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.55;
+  font-variation-settings: "opsz" 14;
+}
+
+a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1.5px; }
+a:hover { text-decoration-thickness: 3px; }
+a:focus-visible, button:focus-visible {
+  outline: 3px solid var(--fir);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.wrap { max-width: 72rem; margin: 0 auto; padding: 0 var(--gutter); }
+
+/* Header */
+.site-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+.wordmark {
+  font-weight: 800;
+  font-stretch: 85%;
+  font-size: 1.25rem;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+.wordmark svg { width: 1.5rem; height: 1.5rem; }
+.head-link { font-weight: 600; }
+
+/* Hero: the thrown ball */
+.hero {
+  position: relative;
+  padding-top: clamp(3rem, 10vw, 7rem);
+  padding-bottom: clamp(4rem, 12vw, 9rem);
+}
+.hero h1 {
+  margin: 0;
+  max-width: 13ch;
+  font-size: clamp(2.75rem, 8.5vw, 6.5rem);
+  line-height: 0.95;
+  font-weight: 800;
+  font-stretch: 78%;
+  font-variation-settings: "opsz" 96;
+  letter-spacing: -0.03em;
+}
+.hero p {
+  max-width: var(--measure);
+  margin: 1.75rem 0 0;
+  font-size: clamp(1.15rem, 2vw, 1.35rem);
+  color: var(--moss);
+}
+.throw {
+  position: absolute;
+  right: var(--gutter);
+  top: 0;
+  width: min(46vw, 34rem);
+  height: auto;
+  pointer-events: none;
+}
+.throw .path {
+  fill: none;
+  stroke: var(--moss);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 2 14;
+}
+.throw .ball { transform-box: fill-box; transform-origin: center; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .throw .mask-path {
+    stroke-dasharray: 1200;
+    stroke-dashoffset: 1200;
+    animation: draw 1.4s cubic-bezier(.3,.6,.3,1) .2s forwards;
+  }
+  .throw .ball {
+    opacity: 0;
+    animation: land .5s cubic-bezier(.2,1.6,.4,1) 1.45s forwards;
+  }
+}
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes land {
+  from { opacity: 0; transform: scale(.4); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Products */
+.products { padding-bottom: clamp(3rem, 8vw, 6rem); }
+.section-title {
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  font-weight: 700;
+  font-stretch: 85%;
+  letter-spacing: -0.015em;
+  margin: 0 0 1.5rem;
+}
+.flagship {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  border-radius: 28px;
+  overflow: hidden;
+  background: var(--white);
+  border: 1px solid var(--line);
+}
+.flagship-art {
+  background: linear-gradient(160deg, var(--sky-1), var(--sky-2));
+  color: var(--white);
+  padding: clamp(1.75rem, 4vw, 3rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 20rem;
+  position: relative;
+}
+.flagship-art .app-name {
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin: 0;
+  padding-right: 4.5rem;
+}
+.flagship-art .tagline {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+}
+.flagship-art .sparkles { position: absolute; right: 1.5rem; top: 1.5rem; width: 6rem; }
+.flagship-body { padding: clamp(1.75rem, 4vw, 3rem); }
+.flagship-body p { margin: 0 0 1rem; max-width: var(--measure); }
+.status {
+  display: inline-block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  background: var(--mist);
+  border-radius: 999px;
+  padding: 0.3rem 0.85rem;
+  margin-bottom: 1.25rem;
+}
+.button {
+  display: inline-block;
+  margin-top: 0.5rem;
+  background: var(--fir);
+  color: var(--white);
+  font-weight: 700;
+  text-decoration: none;
+  padding: 0.85rem 1.4rem;
+  border-radius: 999px;
+}
+.button:hover { background: var(--moss); }
+
+.next-up {
+  margin-top: 1.5rem;
+  padding: 1.25rem 0 0;
+  border-top: 1px solid var(--line);
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: baseline;
+}
+.next-up strong { font-weight: 700; }
+.next-up span { color: var(--moss); }
+
+/* About + contact */
+.about {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 6vw, 5rem);
+  padding-top: clamp(3rem, 8vw, 5rem);
+  padding-bottom: clamp(3rem, 8vw, 5rem);
+  background: linear-gradient(var(--line), var(--line)) no-repeat center top / calc(100% - 2 * var(--gutter)) 1px;
+}
+.about p { margin: 0 0 1rem; max-width: var(--measure); }
+.about h2 { font-size: 1.35rem; font-weight: 700; margin: 0 0 0.75rem; }
+address { font-style: normal; }
+.email { font-size: clamp(1.3rem, 2.5vw, 1.6rem); font-weight: 700; }
+
+/* Footer */
+.site-foot {
+  background: linear-gradient(var(--line), var(--line)) no-repeat center top / calc(100% - 2 * var(--gutter)) 1px;
+  padding-top: 1.75rem;
+  padding-bottom: 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.95rem;
+  color: var(--moss);
+}
+.site-foot nav { display: flex; gap: 1.25rem; }
+
+/* Plain pages (privacy) */
+.doc { max-width: 40rem; padding-top: 2rem; padding-bottom: 4rem; }
+.doc h1 { font-size: clamp(2.2rem, 6vw, 3.4rem); font-weight: 800; font-stretch: 80%; line-height: 1; letter-spacing: -0.02em; margin: 0 0 0.5rem; }
+.doc h2 { font-size: 1.3rem; font-weight: 700; margin: 2rem 0 0.5rem; }
+.doc p, .doc li { max-width: var(--measure); }
+.doc .updated { color: var(--moss); margin-top: 0; }
+
+@media (max-width: 760px) {
+  .throw { position: static; width: 70%; margin: 0 0 1rem auto; display: block; }
+  .hero { padding-top: 1rem; }
+  .flagship { grid-template-columns: 1fr; }
+  .flagship-art { min-height: 14rem; }
+  .about { grid-template-columns: 1fr; }
+}
